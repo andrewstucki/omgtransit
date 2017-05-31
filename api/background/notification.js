@@ -7,7 +7,7 @@ var timers        = require("timers"),
     gcm           = require('node-gcm'),
     realtime      = require('../lib/realtime.js'),
     Q             = require('q'),
-    Db            = require('mongodb').Db,
+    Db            = require('mongodb').MongoClient,
     ObjectID      = require('mongodb').ObjectID;
 
 var mongoClient;
@@ -39,16 +39,16 @@ var certPath = process.cwd() + '/certs/';
 if ( process.env.NODE_ENV === 'production' ) {
   apnOptions = {
     cert: certPath + 'prod_exported_certificate.pem',
-    certData: null,                                
-    key: certPath + 'prod_exported_certificate.pem',                       
+    certData: null,
+    key: certPath + 'prod_exported_certificate.pem',
     keyData: null,
     gateway: "gateway.push.apple.com"
   };
 } else {
   apnOptions = {
     cert: certPath + 'dev_exported_certificate.pem',
-    certData: null,                       
-    key: certPath + 'dev_exported_certificate.pem',                       
+    certData: null,
+    key: certPath + 'dev_exported_certificate.pem',
     keyData: null,
     gateway: "gateway.sandbox.push.apple.com"
   };
@@ -123,12 +123,12 @@ var notification = {
     console.log('Checking Alerts : ' + tick);
 
     notification.findAlerts( parseFloat(tick), parseFloat(offsetTick) ).then(function(resp) {
-    
+
       if ( resp.length > 0 ) {
         console.log('Found Alerts: ' + tick + '-' + resp.length);
         // We got a good response, let's check out some notifications.
         var results = resp;
-     
+
         for( var i=0, len=results.length; i < len; i++ ) {
           var alert = results[i];
 
@@ -137,14 +137,14 @@ var notification = {
           // Check for recurring status... If it is recurring, and today is not in the list,
           // then try again tomorrow!
           // ===================================================================================
-          
+
           if( alert.recurring && alert.recurring_days.search(today) === -1 ) {
             return;
           }
 
           // ===================================================================================
           // Recurring, but we have already sent the alert today
-          // ===================================================================================          
+          // ===================================================================================
 
           if( alert.recurring && alert.last_recurring_at && moment(alert.last_recurring_at).format('MM/DD/YYYY') === moment().format('MM/DD/YYYY') ) {
             return;
@@ -154,17 +154,17 @@ var notification = {
           if ( alert.platform && alert.device_token ) {
 
             var realtimestop = new realtime.Realtime(alert.realtime_url.toLowerCase());
-            
+
             // Determine actual distance away that bus is.
             realtimestop.getRealtime().then(function(result){
               if ( result ) {
                 var sendResult = notification.shouldWeSend(result, alert);
-    
-                // There is an alert time that matches ours. Let's send it out.            
+
+                // There is an alert time that matches ours. Let's send it out.
                 if( sendResult.status ) {
 
                   var message = notification.determineMessage( sendResult.minAway, alert.route, alert.stop_name );
-                  
+
                   if(message) {
                     notification.pushMessage(alert, message);
                   }
@@ -179,7 +179,7 @@ var notification = {
                     notification.pushMessage(alert, message);
                   }
                 }
-    
+
               }
             });
 
@@ -188,7 +188,7 @@ var notification = {
       } else {
         console.log('Checking Alerts: None Found');
       }
-      
+
     });
   },
 
@@ -196,7 +196,7 @@ var notification = {
     var alertSource = alert;
 
     notification.sendMessage( alertSource.platform, message, alertSource.device_token, alertSource.realtime_url );
-    
+
     if ( alertSource.recurring ) {
       // Otherwise update the alert time for tomorrow.
       notification.updateAlert(alert);
@@ -225,7 +225,7 @@ var notification = {
     if (routes.length) {
       // There are some routes available let's sort them by minAway.
       var r = _.sortBy(routes, 'minAway');
-      
+
       // Check for offset vs timeAway...  If the bus is offset away or less push the user.
       if( r[0].minAway <= alert.offset + 1 ) {
         return { status: true, minAway: r[0].minAway };
@@ -234,7 +234,7 @@ var notification = {
     return { status: false, minAway: r[0].minAway };
   },
 
-  determineMessage: function(timeAway, route, stop_name) {  
+  determineMessage: function(timeAway, route, stop_name) {
     return 'The ' + route + ' is ' + timeAway + ' min away from ' + stop_name;
   },
 
@@ -247,7 +247,7 @@ var notification = {
   },
 
   sendMessage: function(platform, message, token, realtimeUrl) {
-    
+
     // Determine which platform to send to.
     if ( platform === 'iOS' ) {
 
@@ -261,7 +261,7 @@ var notification = {
       apnConnection.pushNotification(note, device);
 
     } else if ( platform === 'Android' ) {
-      
+
       var note = new gcm.Message();
       var sender = new gcm.Sender(process.env.gcm_android_key);
       var registrationIds = [token];
@@ -275,7 +275,7 @@ var notification = {
         console.log(result);
         console.log(err);
       });
-    
+
     }
   }
 };
@@ -297,4 +297,4 @@ init();
 // apnConnection.on('disconnected', log('disconnected'));
 // apnConnection.on('socketError', log('socketError'));
 // apnConnection.on('transmissionError', log('transmissionError'));
-// apnConnection.on('cacheTooSmall', log('cacheTooSmall')); 
+// apnConnection.on('cacheTooSmall', log('cacheTooSmall'));

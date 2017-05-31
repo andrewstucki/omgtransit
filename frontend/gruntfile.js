@@ -5,7 +5,8 @@ module.exports = function(grunt){
 
     appConfig: {
       appRoot: 'www',
-      webRoot: '../server/public/'
+      webRoot: '../server/public/',
+      dockerRoot: '../public'
     },
 
     sass: {
@@ -87,6 +88,28 @@ module.exports = function(grunt){
         files: [
           {cwd: '<%= appConfig.appRoot %>/vendor/assets/font', src: ['**/*'], dest: '<%= appConfig.webRoot %>/assets/font/'}
         ]
+      },
+      docker: {
+        files: [
+          {cwd: '<%= appConfig.appRoot %>/', src: ['**/*'], dest: '<%= appConfig.dockerRoot %>/'}
+        ],
+        options: {
+          ignore: [
+            '<%= appConfig.appRoot %>/spec{,/**/*}',
+            '<%= appConfig.appRoot %>/res{,/**/*}',
+            '<%= appConfig.appRoot %>/assets/javascripts{,/**/*}',
+            '<%= appConfig.appRoot %>/assets/stylesheets{,/**/*}',
+            '<%= appConfig.appRoot %>/vendor{,/**/*}',
+            '<%= appConfig.appRoot %>/icon.png',
+            '<%= appConfig.appRoot %>/config.xml',
+            '<%= appConfig.appRoot %>/spec.html'
+          ]
+        }
+      },
+      dockerWebfont: {
+        files: [
+          {cwd: '<%= appConfig.appRoot %>/vendor/assets/font', src: ['**/*'], dest: '<%= appConfig.dockerRoot %>/assets/font/'}
+        ]
       }
     },
 
@@ -163,6 +186,7 @@ module.exports = function(grunt){
     'preprocess:html',  // Remove DEBUG code from production builds
   ]);
 
-  grunt.registerTask('default', ['sass', 'compass', 'watch', 'jst', 'build']);
+
+  grunt.registerTask('default', ['sass', 'compass', 'watch', 'jst', 'buildweb']);
 
 };

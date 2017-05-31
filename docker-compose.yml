@@ -30,7 +30,8 @@ services:
       - ./server:/home/app/ruby-api         # rails app
       - ./api:/home/app/node-api            # node app
       - ./data/:/data                       # project data dir
-      - assets:/home/app/server/public      # front end assets
+      - ./data/:/home/app/data                       # project data dir
+      - ./server/public:/home/app/rails-api/public      # front end assets
       - gtfs_sources:/data/gtfs_sources     # GTFS input data
       - bundle:/bundle                      # for bundle installs
     ports:

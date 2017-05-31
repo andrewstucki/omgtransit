@@ -1,13 +1,13 @@
 var request      = require('request');
 var moment       = require('moment');
 var redis        = require("redis");
-var redisclient  = redis.createClient('6379', process.env.redis_host);
+var redisclient  = redis.createClient(process.env.redis_host);
 var _            = require('lodash');
 var transit_defs = require('../lib/transit_defs');
 var utility      = require('../lib/utility');
 var Q            = require('q');
 var config       = require('../config');
-var Db           = require('mongodb').Db;
+var Db           = require('mongodb').MongoClient;
 var xml2js       = require('xml2js').parseString;
 var mongoClient;
 require('log-timestamp');
@@ -67,7 +67,7 @@ function update_mongo_index(stop_type, stops_to_index){
       });
     });
 
-    
+
 
 
   });
@@ -108,7 +108,7 @@ var updaters = {
         if(error || response.statusCode !=200){
           console.error('Failed to fetch Amtrak real-time data!');
           return;
-        } 
+        }
 
         //TODO (from Richard): It would eventually be good to transform all of the data into a format
         //that's friendly to the question "What trains arrive at this station when." as
@@ -230,7 +230,7 @@ var updaters = {
       request({url:CAR2GO_LOCATIONS_URL,json:true, timeout: 10000}, function (error, response, body) {
         if(error || response.statusCode !=200){
           console.error("Warning: Failed to fetch car2go locations!");
-          return; 
+          return;
         }
 
         var stops_to_index=[];
@@ -244,7 +244,7 @@ var updaters = {
             CAR2GO_VEHICLES_URL.replace('{location}', loc.locationName.toLowerCase()),
             timeout: 10000 },
             function(error, response, body) {
-              
+
               if(error || response.statusCode!=200){
                 console.log("Error on '"+CAR2GO_VEHICLES_URL.replace('{location}', loc.locationName.toLowerCase())+"': ",error);
                 deferred.reject();
@@ -291,7 +291,7 @@ var updaters = {
           );
           return deferred.promise;
         });
-        
+
         //Once all of the locations have either successfully been added to
         //ElasticSearch or have failed, continue by rotating the indexes.
         //TODO(Richard): Abstract the index rotation.
@@ -357,15 +357,15 @@ var updaters = {
           console.error('Error fetching: '+url);
           return;
         }
-        
+
         body=JSON.parse(body);
         helper(body);
-        
+
       });
 
       function helper(data) {
         var stations = data.stations
-       
+
         _.each(stations, function(station) {
           var rediskey       = 'pronto/'+station.id;
           var availableBikes = station.ba;
@@ -536,7 +536,7 @@ var updaters = {
 
       //Collect list of locations with Bcycle programs
       request({ url: formURL(ListProgramsURL), timeout: 10000 }, function (error, response, body) {
-        
+
         if(error || response.statusCode!=200){
           console.error('Error fetching Bcycle Program List');
           return;
@@ -592,7 +592,7 @@ var updaters = {
         if(error || response.statusCode !=200){
           console.error('Error: Failed to fetch BART real-time data!');
           return;
-        } 
+        }
         xml2js(body, function(err,result){
           if(err){
             console.error('Error: Failed to parse BART XML!');

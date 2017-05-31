@@ -2,7 +2,7 @@ var expect = require("chai").expect;
 var moment = require('moment');
 var n = require("../background/notification.js");
 var realtime = require('../lib/realtime.js');
-var Db = require('mongodb').Db;
+var Db = require('mongodb').MongoClient;
 
 // var realtime = [ { time: 1397243340,
 //     direction: 'east',
@@ -55,12 +55,12 @@ var Db = require('mongodb').Db;
 //     updated: 1397242877 }];
 
 var alert, mongoClient;
- 
+
 describe("Notifications", function() {
 
   before(function(done) {
-    
-    
+
+
     Db.connect(process.env.mongo_host, function(err, db) {
       if(err) {
         console.log("Error Starting up Mongo!@");
@@ -88,14 +88,14 @@ describe("Notifications", function() {
     });
   });
 
-  
+
   describe("#notification", function() {
     it("should have defined variables for notfication services", function() {
       expect(n.notification).to.not.be.undefined;
     });
 
     it("should be able to find a basic alert", function(done) {
-      
+
       n.notification.findAlerts(18.01, 17.56).then(function(results) {
         expect(results.length).to.equal(1);
         done();
@@ -136,7 +136,7 @@ describe("Notifications", function() {
 
         var send1 = n.notification.shouldWeSend(realtime, alert);
         expect(send1.status).to.be.true;
-        
+
         var message = n.notification.determineMessage( send1.minAway, alert.route, alert.stop_name );
         expect(message).to.equal('The 16 is 6 min away from University Av & 25 Av SE');
 
@@ -147,12 +147,12 @@ describe("Notifications", function() {
 
         done();
       });
-      
+
     });
 
     it("should be able to update a recurring alert", function(done) {
       expect(alert.last_recurring_at).to.be.undefined;
-      
+
       n.notification.updateAlert({ _id: alert._id });
 
       setTimeout(function() {

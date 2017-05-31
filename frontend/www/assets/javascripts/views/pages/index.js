@@ -5,7 +5,7 @@
 */
 
 Omg.Views.Index = Backbone.Marionette.ItemView.extend({
-  
+
   template: JST['_jst/pages/index.html'],
   className: 'list-container',
   views: {},
@@ -40,7 +40,7 @@ Omg.Views.Index = Backbone.Marionette.ItemView.extend({
 
   onShow: function() {
     var self = this;
-    
+
     // Table results
     this.table_results = this.$el.find('#table-results');
 
@@ -78,7 +78,7 @@ Omg.Views.Index = Backbone.Marionette.ItemView.extend({
     }
     this.delegateEvents();
     if(this.rideshares) {
-      this.rideshares.delegateEvents(); 
+      this.rideshares.delegateEvents();
     }
   },
 
@@ -92,7 +92,7 @@ Omg.Views.Index = Backbone.Marionette.ItemView.extend({
     }).fail(function(err) {
       self.geolocationAlert.error();
     });
-    
+
   },
 
   useDefaultLocation: function() {
@@ -107,7 +107,7 @@ Omg.Views.Index = Backbone.Marionette.ItemView.extend({
     var self = this;
     if (this.center) {
       // Fetch buses, carshares, and bikeshares
-      this.collection.fetch({ data: { lat: this.center.lat, lon: this.center.lon, timeout:8000, filter: Omg.filters.formatted }, 
+      this.collection.fetch({ data: { lat: this.center.lat, lon: this.center.lon, timeout:8000, filter: Omg.filters.formatted },
         success: function(data) {
           self.hideLoading();
           self.tableFetched(data);
@@ -160,7 +160,7 @@ Omg.Views.Index = Backbone.Marionette.ItemView.extend({
 
   tableFetched: function(data) {
     var self = this;
-    
+
     if( !this.table_results ) {
       return;
     }
@@ -196,7 +196,7 @@ Omg.Views.Index = Backbone.Marionette.ItemView.extend({
 
     var target = $(e.currentTarget);
     var index = target.data('index');
-    
+
     Omg.currentStop = new Omg.Models.Stop( this.getStopByIndex(index) );
     Omg.router.navigate(target[0].hash);
   },

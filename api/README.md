@@ -38,3 +38,5 @@ sidecar_key=ADD_KEY_HERE
 hailo_key=ADD_KEY_HERE
 forecast_io_key=ADD_KEY_HERE
 ```
+
+For the default dockerized dev environment just `cp env.development .env`

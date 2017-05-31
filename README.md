@@ -69,8 +69,8 @@ Getting Things Running
            Require all granted
         </Directory>
 
-        SSLEngine on 
-        SSLOptions +StrictRequire 
+        SSLEngine on
+        SSLOptions +StrictRequire
         SSLCertificateFile /etc/apache2/certs/server.crt
         SSLCertificateKeyFile /etc/apache2/certs/server.key
     </VirtualHost>
@@ -100,8 +100,8 @@ Getting Things Running
            Require all granted
         </Directory>
 
-        SSLEngine on 
-        SSLOptions +StrictRequire 
+        SSLEngine on
+        SSLOptions +StrictRequire
         SSLCertificateFile /etc/apache2/certs/server.crt
         SSLCertificateKeyFile /etc/apache2/certs/server.key
     </VirtualHost>
@@ -120,7 +120,11 @@ Load up "https://omgtransit.it" in a browser
 Running on Docker
 =================
 
+Because of the way that we do mounts in development, we want to continuously build locally and use the corresponding
+output from grunt in our docker container.
+
 1. [Install Docker Engine](https://docs.docker.com/engine/installation/)
 2. [Install Docker Compose](https://docs.docker.com/compose/install/)
-3. `docker-compose build`
-4. `docker-compose up`
+3. `cd frontend && npm install && grunt buildweb`
+4. `docker-compose build`
+5. `docker-compose up`

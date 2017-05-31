@@ -9,7 +9,7 @@ var _            = require('lodash');
 var transit_defs = require('../lib/transit_defs');
 var Q            = require('q');
 var realtime     = require('../lib/realtime.js');
-var Db           = require('mongodb').Db;
+var Db           = require('mongodb').MongoClient;
 var mongoClient;
 var request      = require('request');
 var rideshares = require('../lib/rideshares');
@@ -36,11 +36,11 @@ function findNearbyStops(req, res) {
   if (req.query.limit) {
     num = req.query.limit;
   }
-  
+
   if (req.query.filter) {
     var types = req.query.filter.split(',');
     types = _.map(types, function(type){ return parseInt(type, 10); });
-    
+
     // If filtering, let's go 15mi out.
     distance = '15';
     filter.stop_type = { $in: types };
@@ -65,7 +65,7 @@ exports.list = function(req, res) {
 };
 
 exports.bounds = function(req, res) {
-  
+
   // Add CORS headers
   loadCORS(res);
 
@@ -77,7 +77,7 @@ exports.bounds = function(req, res) {
 };
 
 exports.get = function(req, res) {
-  
+
   // Add CORS headers
   loadCORS(res);
 
@@ -89,7 +89,7 @@ exports.get = function(req, res) {
   }
 
   system = transit_defs.defs[system].id;
-  
+
   mongoClient.collection('mongo_stops').find({ source_id: system, stop_id: stopid}).toArray(function(err, response) {
     if(err) {
       res.writeHead(401);
@@ -226,7 +226,7 @@ exports.rideshare = function(req, res) {
   var url;
   var deferred = Q.defer();
   var self = this;
-  
+
   if ( system === 'sidecar' ) {
     url = 'https://api.side.cr/vehicle/getNearbyDrivers/' + lat + '/' + lon + '/' + process.env.sidecar_key;
   }
@@ -241,17 +241,17 @@ exports.rideshare = function(req, res) {
       deferred.resolve(false)
       return deferred.promise;
     }
-    
+
     body=JSON.parse(body);
     if(self.parser)
       body = parser.parsers[self.parser](body);
       deferred.resolve( body );
       res.json(body);
-    
+
   });
 
   return deferred.promise;
-  
+
 };
 
 exports.uber = function(req, res) {
