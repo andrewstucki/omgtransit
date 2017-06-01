@@ -1,4 +1,4 @@
-@import "../colors.css.scss";
+@import "../colors";
 
 .navbar-fixed-top, .navbar-fixed-bottom {
   position: fixed;
@@ -15,7 +15,7 @@
 
 .navbar {
   height: 50px;
-  
+
   .nav-button {
     margin: 7px 5px 0 5px;
     padding: 5px;
@@ -50,7 +50,7 @@
   .brand {
     padding: 7px 0px 0 20px;
   }
-  
+
   a {
     color: $white;
   }

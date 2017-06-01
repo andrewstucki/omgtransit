@@ -11,7 +11,7 @@ var transit_defs = require('../lib/transit_defs');
 
 var mongoClient;
 
-Db.connect(process.env.mongo_host, function(err, db) {
+Db.connect(process.env.MONGO_HOST, function(err, db) {
   if(err) {
     console.log("Error Starting up Mongo!@");
     console.log(err);

@@ -2,7 +2,7 @@ var request         = require('request');
 var parser          = require('../lib/parser');
 var Q               = require('q');
 var redis           = require("redis");
-var redisclient     = redis.createClient('6379', process.env.redis_host);
+var redisclient     = redis.createClient(6379, process.env.REDIS_HOST);
 var _               = require('lodash');
 var transit_defs    = require('../lib/transit_defs');
 var parseString     = require('xml2js').parseString;
@@ -13,7 +13,7 @@ require('log-timestamp');
 //Constructor of Realtime object
 //Takes a stopid of the form "<SYSTEM>/<STOPID>" or "<SYSTEM>/<SUBSYSTEM>/<STOPID>"
 exports.Realtime = function(stopid){
-  //Split up the stopid 
+  //Split up the stopid
   var stopinfo  = stopid.split('/');
   this.rediskey = stopid;
 
@@ -120,7 +120,7 @@ exports.Realtime.prototype._fetchRealtime = function(){
       deferred.resolve(false)
       return deferred.promise;
     }
-    
+
     if(self.format === 'json') {
       body=JSON.parse(body);
       if(self.parser)

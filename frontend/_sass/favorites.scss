@@ -1,4 +1,4 @@
-@import "colors.css.scss";
+@import "colors";
 
 .favorites-container, .alert-container {
   max-width: 940px;
@@ -23,7 +23,7 @@
   .real-time {
     width: 90%;
   }
-  
+
   ul {
     margin: 0;
   }
@@ -40,7 +40,7 @@
     display: block;
     padding-right: 30px;
   }
-  
+
   .real-time {
     margin: 5px 0;
   }

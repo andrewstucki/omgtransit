@@ -23,20 +23,18 @@ API KEYS, ETC
 A .env file must be created at the root of the api folder with key/value pairs for the different systems.
 
 ```bash
-mongo_host=HOST_STRING
-gcm_android_key=ADD_KEY_HERE
-google_maps_key=ADD_KEY_HERE
-car2go_key=ADD_KEY_HERE
-cyclocity_key=ADD_KEY_HERE
-bcycle_key=ADD_KEY_HERE
-bart_key=ADD_KEY_HERE
-cta_bus_key=ADD_KEY_HERE
-cta_train_key=ADD_KEY_HERE
-wdc_key=ADD_KEY_HERE
-uber_key=ADD_KEY_HERE
-sidecar_key=ADD_KEY_HERE
-hailo_key=ADD_KEY_HERE
-forecast_io_key=ADD_KEY_HERE
+MONGO_HOST=HOST_STRING
+GCM_ANDROID_KEY=ADD_KEY_HERE
+GOOGLE_MAPS_KEY=ADD_KEY_HERE
+CAR2GO_KEY=ADD_KEY_HERE
+CYCLOCITY_KEY=ADD_KEY_HERE
+BCYCLE_KEY=ADD_KEY_HERE
+BART_KEY=ADD_KEY_HERE
+CTA_BUS_KEY=ADD_KEY_HERE
+CTA_TRAIN_KEY=ADD_KEY_HERE
+WDC_KEY=ADD_KEY_HERE
+UBER_KEY=ADD_KEY_HERE
+SIDECAR_KEY=ADD_KEY_HERE
+HAILO_KEY=ADD_KEY_HERE
+FORECAST_IO_KEY=ADD_KEY_HERE
 ```
-
-For the default dockerized dev environment just `cp env.development .env`

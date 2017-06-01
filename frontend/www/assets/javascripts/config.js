@@ -207,7 +207,7 @@ if( document.location.protocol === "file:") {
   AppConfig.backendUrl  = 'http://omgtransit.it';
 } else {
   // Normal web
-  AppConfig.backendUrl  = 'https://'+window.location.host;
+  AppConfig.backendUrl = '';
 }
 
 AppConfig.realtimeUrl = AppConfig.backendUrl + '/v0';

@@ -1,4 +1,4 @@
-@import "colors.css.scss";
+@import "colors";
 
 .signout-container {
   max-width: 320px;
@@ -19,7 +19,7 @@
   max-width: 320px;
   padding: 0 10px;
   text-align: center;
-  
+
   input[type=text], input[type=password] {
     font-family: 'OpenSansLight', Helvetica, sans-serif;
     border: none;
@@ -108,8 +108,8 @@
     font-size: 12px;
   }
 
-  
-  
+
+
   a {
     color:           $light_blue;
     text-decoration: underline;
@@ -135,5 +135,5 @@
   .social-login {
     margin-top: 10px;
   }
-  
+
 }

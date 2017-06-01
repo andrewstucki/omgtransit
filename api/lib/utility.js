@@ -1,7 +1,7 @@
 var request      = require('request');
 var Q            = require('q');
 var redis        = require("redis");
-var redisclient  = redis.createClient(process.env.redis_host);
+var redisclient  = redis.createClient(6379, process.env.REDIS_HOST);
 var _            = require('lodash');
 var transit_defs = require('../lib/transit_defs');
 var moment       = require('moment-timezone');
@@ -9,9 +9,7 @@ var moment       = require('moment-timezone');
 var Db           = require('mongodb').MongoClient;
 var mongoClient;
 
-console.log(process.env)
-
-Db.connect(process.env.mongo_host, function(err, db) {
+Db.connect(process.env.MONGO_HOST, function(err, db) {
   if(err) {
     console.log("Error Starting up Mongo!@");
     console.log(err);

@@ -1,4 +1,4 @@
-@import "colors.css.scss";
+@import "colors";
 
 table {
   font-size:16pt;
@@ -75,7 +75,7 @@ table {
       font-size: 12px;
       padding: 4px;
     }
-    
+
   }
 }
 
@@ -188,7 +188,7 @@ table {
   background: #fff;
   color: #000;
   border-radius: 7px;
-  
+
   .active {
     border-radius: 7px;
     background: #08c;
@@ -229,7 +229,7 @@ div.stop_detail {
       font-size: 30px;
       width: 250px;
       margin: 20px auto;
-      
+
       span {
         font-size: 12px;
       }
@@ -258,8 +258,8 @@ div.stop_detail {
         display: inline-block;
 
         p {
-          display: table-cell; 
-          vertical-align: middle; 
+          display: table-cell;
+          vertical-align: middle;
           text-align: center;
         }
       }

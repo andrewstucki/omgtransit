@@ -4,7 +4,7 @@
 
 @import "compass/css3/transition";
 @import "compass/css3/transform";
-@import "colors.css.scss";
+@import "colors";
 
 $right_nav_width:     180px;
 $sidebar_width:       260px;
@@ -14,27 +14,27 @@ $font_regular:   'OpenSansRegular', Helvetica, sans-serif;
 $font_semi_bold: 'OpenSansSemibold', Helvetica, sans-serif;
 $font_light:     'OpenSansLight', Helvetica, sans-serif;
 
-@import "vendor/pull-to-refresh.css.scss";
+@import "vendor/pull-to-refresh";
 
-@import "components/base.css.scss";
-@import "components/animations.css.scss";
-@import "components/navbar.css.scss";
-@import "components/toolbar.css.scss";
-@import "components/search.css.scss";
-@import "components/map_preview.css.scss";
+@import "components/base";
+@import "components/animations";
+@import "components/navbar";
+@import "components/toolbar";
+@import "components/search";
+@import "components/map_preview";
 
-@import "pages/list.css.scss";
-@import "pages/me.css.scss";
-@import "pages/trips.css.scss";
-@import "pages/trip-log.css.scss";
-@import "pages/map.css.scss";
-@import "pages/filter.css.scss";
+@import "pages/list";
+@import "pages/me";
+@import "pages/trips";
+@import "pages/trip-log";
+@import "pages/map";
+@import "pages/filter";
 
-@import "transit_sources/car2go.css.scss";
-@import "transit_sources/zipcar.css.scss";
-@import "transit_sources/uber.css.scss";
-@import "transit_sources/sidecar.css.scss";
-@import "transit_sources/hailo.css.scss";
+@import "transit_sources/car2go";
+@import "transit_sources/zipcar";
+@import "transit_sources/uber";
+@import "transit_sources/sidecar";
+@import "transit_sources/hailo";
 
 
 .layout {
@@ -307,8 +307,8 @@ $font_light:     'OpenSansLight', Helvetica, sans-serif;
 
   .select-lg {
     width: 200px;
-    color: #000; 
-    margin: 0 0 15px 0; 
+    color: #000;
+    margin: 0 0 15px 0;
     height: 50px;
     background: transparent;
     color: white;
@@ -486,9 +486,9 @@ $font_light:     'OpenSansLight', Helvetica, sans-serif;
   -moz-animation:    rotate 1s infinite steps(12);
   -ms-animation:     rotate 1s infinite steps(12);
   -o-animation:      rotate 1s infinite steps(12);
-  animation:         rotate 1s infinite steps(12); 
+  animation:         rotate 1s infinite steps(12);
   width:             32px;
-  height:            32px; 
+  height:            32px;
 }
 
 /* =====================================
@@ -505,7 +505,7 @@ $font_light:     'OpenSansLight', Helvetica, sans-serif;
 
 #view-notes {
   padding:     5px;
-  
+
   h1,h2{font-family:$font_semi_bold;}
 }
 
@@ -786,7 +786,7 @@ MAP VIEW
   margin:         0 3px 3px 0;
   text-shadow:    none;
   font-weight:    bold;
-  
+
   .icon-direction {
     font-size: 10px;
   }
@@ -934,7 +934,7 @@ MAP VIEW
   padding:   10px;
   width:     100%;
   font-size: 14px;
-  
+
   border-radius: 4px;
   top:           67px;
   right:         3px;
@@ -1218,7 +1218,7 @@ Sidebar
 
 .sidebar-container {
   //-webkit-backface-visibility: hidden;
-  
+
   position:          fixed;
   z-index:           1050;
   top:               0;
@@ -1361,10 +1361,10 @@ Sidebar
 
 .sidebar-expanded {
   pointer-events: auto;
-  
+
   // .sidebar {
   //    @include transform( translate( 0px, 0px) );
-  // } 
+  // }
 }
 
 #right-nav {
@@ -1372,7 +1372,7 @@ Sidebar
   .open {
     right: 0px !important;
   }
-  
+
   .right-nav-container {
     -webkit-transition: all 0.2s ease;
     -moz-transition: all 0.2s ease;
@@ -1417,7 +1417,7 @@ Sidebar
         text-align:      center;
       }
       a {
-        text-align: center; 
+        text-align: center;
         padding:    12px 0;
         width:      100%;
         font-size:  14px;
@@ -1527,7 +1527,7 @@ Filter
 }
 
 .filters {
-  
+
   button {
     position:     relative;
     color:        $white;
@@ -1535,7 +1535,7 @@ Filter
     border:       none;
     padding-left: 15px;
   }
-  
+
   button.active:before {
     content:       "";
     position:      absolute;
@@ -1568,7 +1568,7 @@ input, select, textarea{
 }
 
 
- 
+
 input[type="search"].sb-search-input {
   -webkit-appearance: none;
   -webkit-border-radius: 0px;
@@ -1577,15 +1577,15 @@ input[type="search"].sb-search-input {
 .sb-search-input::-webkit-input-placeholder {
   color: #08c;
 }
- 
+
 .sb-search-input:-moz-placeholder {
   color: #08c;
 }
- 
+
 .sb-search-input::-moz-placeholder {
   color: #08c;
 }
- 
+
 .sb-search-input:-ms-input-placeholder {
   color: #08c;
 }
@@ -1667,7 +1667,7 @@ input[type="search"].sb-search-input {
         font-size: 12px;
         padding: 4px;
       }
-      
+
     }
   }
 
@@ -1710,7 +1710,7 @@ input[type="search"].sb-search-input {
     background:    #fff;
     color:         #000;
     border-radius: 7px;
-    
+
     .active {
       border-radius: 7px;
       background:    #08c;
@@ -1828,7 +1828,7 @@ input[type="search"].sb-search-input {
       width: 30%;
       padding: 60px 0 70px 0;
       margin: 0 15%;
-      
+
       li {
         list-style: none;
         text-align: center;

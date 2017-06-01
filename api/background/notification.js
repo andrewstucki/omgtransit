@@ -13,9 +13,9 @@ var timers        = require("timers"),
 var mongoClient;
 var ___backgroundTimer;
 require('log-timestamp');
-require('dotenv').config();
+require('dotenv').config({silent: true});
 
-Db.connect(process.env.mongo_host, function(err, db) {
+Db.connect(process.env.MONGO_HOST, function(err, db) {
   if(err) {
     console.log("Error Starting up Mongo!@");
     console.log(err);
@@ -263,7 +263,7 @@ var notification = {
     } else if ( platform === 'Android' ) {
 
       var note = new gcm.Message();
-      var sender = new gcm.Sender(process.env.gcm_android_key);
+      var sender = new gcm.Sender(process.env.GCM_ANDROID_KEY);
       var registrationIds = [token];
       note.addData('title', 'OMG Transit');
       note.addData('message', message);

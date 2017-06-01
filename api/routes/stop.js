@@ -16,7 +16,7 @@ var rideshares = require('../lib/rideshares');
 
 require('log-timestamp');
 
-Db.connect(process.env.mongo_host, function(err, db) {
+Db.connect(process.env.MONGO_HOST, function(err, db) {
   if(err) {
     console.log("Error Starting up Mongo!@");
     console.log(err);
@@ -228,11 +228,11 @@ exports.rideshare = function(req, res) {
   var self = this;
 
   if ( system === 'sidecar' ) {
-    url = 'https://api.side.cr/vehicle/getNearbyDrivers/' + lat + '/' + lon + '/' + process.env.sidecar_key;
+    url = 'https://api.side.cr/vehicle/getNearbyDrivers/' + lat + '/' + lon + '/' + process.env.SIDECAR_KEY;
   }
 
   if ( system === 'hailo' ) {
-    url = 'https://api.hailoapp.com/drivers/eta?api_token=' + process.env.hailo_key + '&latitude=' + lat + '&longitude=' + lon;
+    url = 'https://api.hailoapp.com/drivers/eta?api_token=' + process.env.HAILO_KEY + '&latitude=' + lat + '&longitude=' + lon;
   }
 
   request({ url:url, timeout: 4000 }, function (error, response, body) {
@@ -268,7 +268,7 @@ exports.uber = function(req, res) {
     url: url,
     timeout: 4000,
     headers: {
-      'Authorization': 'Token ' + process.env.uber_key
+      'Authorization': 'Token ' + process.env.UBER_KEY
     },
   }, function(error, response, body) {
       console.log(error);

@@ -205,7 +205,7 @@ function time_to_frostbite(temp){
 //in the hourly property
 //See: https://developer.forecast.io/docs/v2 for more info
 function getweather(location){
-  var url="https://api.forecast.io/forecast/" + process.env.forecast_io_key + "/{location}?exclude=minutely,daily,flags&units=us";
+  var url="https://api.forecast.io/forecast/" + process.env.FORECAST_IO_KEY + "/{location}?exclude=minutely,daily,flags&units=us";
   url=url.replace('{location}',location);
 
   return utility.fetchncache(url,30*60,true); //TODO(Richard): Find a godo value for this

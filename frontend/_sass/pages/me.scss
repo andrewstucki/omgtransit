@@ -1,9 +1,9 @@
-@import "../colors.css.scss";
+@import "../colors";
 
 .me-container, .trips-container {
   max-width: 940px;
   margin: 0 auto;
-  
+
   ul {
     margin: 0;
   }
@@ -11,7 +11,7 @@
   li {
     position: relative;
     margin: 5px;
-    
+
     list-style: none;
     background: white;
 

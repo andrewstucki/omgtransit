@@ -1,5 +1,5 @@
 require('log-timestamp');
-require('dotenv').config();
+require('dotenv').config({silent: true});
 
 console.log('Starting API server.');
 
@@ -17,7 +17,7 @@ var _ = require('lodash');
 
 // Redis
 var redis        = require("redis"),
-    redisclient  = redis.createClient('6379', process.env.redis_host);
+    redisclient  = redis.createClient(6379, process.env.REDIS_HOST);
 
 
 GLOBAL.backendUrl = 'https://dev.omgtransit.com';

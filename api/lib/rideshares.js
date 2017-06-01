@@ -17,14 +17,14 @@ var parser = require('../lib/parser');
       timeout: 2000,
       url: url,
       headers: {
-        'Authorization': 'Token ' + process.env.uber_key
+        'Authorization': 'Token ' + process.env.UBER_KEY
       },
     }, function(error, response, body) {
       if(error || response.statusCode!=200){
         deferred.resolve({ name: 'uber', error: 'error' });
         return deferred.promise;
       }
-      
+
       body = JSON.parse(body);
       body.name = 'uber';
       deferred.resolve( body );
@@ -65,24 +65,24 @@ exports.HAILO = Hailo;
 // Generic rideshare operation.
 
 function rideshare(lat, lon, system) {
-  
+
   var url;
   var deferred = Q.defer();
   var self = this;
-  
+
   if ( system === 'sidecar' ) {
-    url = 'https://api.side.cr/vehicle/getNearbyDrivers/' + lat + '/' + lon + '/' + process.env.sidecar_key;
+    url = 'https://api.side.cr/vehicle/getNearbyDrivers/' + lat + '/' + lon + '/' + process.env.SIDECAR_KEY;
   }
 
   if ( system === 'hailo' ) {
-    url = 'https://api.hailoapp.com/drivers/eta?api_token=' + process.env.hailo_key + '&latitude=' + lat + '&longitude=' + lon;
+    url = 'https://api.hailoapp.com/drivers/eta?api_token=' + process.env.HAILO_KEY + '&latitude=' + lat + '&longitude=' + lon;
   }
 
   request({
-      timeout: 2000, 
+      timeout: 2000,
       url: url
     }, function (error, response, body) {
-    
+
     if(error || response.statusCode!=200) {
       deferred.resolve({ name: system, error: 'error' });
       return deferred.promise;
@@ -93,5 +93,5 @@ function rideshare(lat, lon, system) {
   });
 
   return deferred.promise;
-  
+
 };

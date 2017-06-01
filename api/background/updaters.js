@@ -1,7 +1,7 @@
 var request      = require('request');
 var moment       = require('moment');
 var redis        = require("redis");
-var redisclient  = redis.createClient(process.env.redis_host);
+var redisclient  = redis.createClient(6379, process.env.REDIS_HOST);
 var _            = require('lodash');
 var transit_defs = require('../lib/transit_defs');
 var utility      = require('../lib/utility');
@@ -11,9 +11,9 @@ var Db           = require('mongodb').MongoClient;
 var xml2js       = require('xml2js').parseString;
 var mongoClient;
 require('log-timestamp');
-require('dotenv').config();
+require('dotenv').config({silent: true});
 
-Db.connect(process.env.mongo_host, function(err, db) {
+Db.connect(process.env.MONGO_HOST, function(err, db) {
   if(err) {
     console.log("Error Starting up Mongo!@");
     console.log(err);
@@ -91,7 +91,7 @@ var updaters = {
     update: function(){
       console.log('Updater: Amtrak started.');
 
-      var url="https://www.googleapis.com/mapsengine/v1/tables/01382379791355219452-08584582962951999356/features?version=published&key=" + process.env.google_maps_key + "&maxResults=250&callback=jQuery19105907959912437946_1383770388074&dataType=jsonp&jsonpCallback=retrieveTrainsData&contentType=application%2Fjson&_=1383770388076";
+      var url="https://www.googleapis.com/mapsengine/v1/tables/01382379791355219452-08584582962951999356/features?version=published&key=" + process.env.GOOGLE_MAPS_KEY + "&maxResults=250&callback=jQuery19105907959912437946_1383770388074&dataType=jsonp&jsonpCallback=retrieveTrainsData&contentType=application%2Fjson&_=1383770388076";
 
       var directions_translate={
         E:  'east',
@@ -215,7 +215,7 @@ var updaters = {
     update: function() {
       console.log('Updater: Car2go started.');
 
-      var CONSUMER_KEY         = process.env.car2go_key;
+      var CONSUMER_KEY         = process.env.CAR2GO_KEY;
       var CAR2GO_NAME          = 'car2go';
       var CAR2GO_LOCATIONS_URL = "https://www.car2go.com/api/v2.1/locations?oauth_consumer_key={CONSUMER_KEY}&format=json";
       var CAR2GO_VEHICLES_URL  = "https://www.car2go.com/api/v2.1/vehicles?loc={location}&oauth_consumer_key={CONSUMER_KEY}&format=json";
@@ -309,8 +309,8 @@ var updaters = {
     update: function() {
       console.log('Updater: Cyclocity started. There will be no success confirmation.');
 
-      var locations_url='https://api.jcdecaux.com/vls/v1/contracts?apiKey=' + process.env.cyclocity_key;
-      var location_specific_url='https://api.jcdecaux.com/vls/v1/stations?apiKey=' + process.env.cyclocity_key + '&contract={contract}';
+      var locations_url='https://api.jcdecaux.com/vls/v1/contracts?apiKey=' + process.env.CYCLOCITY_KEY;
+      var location_specific_url='https://api.jcdecaux.com/vls/v1/stations?apiKey=' + process.env.CYCLOCITY_KEY + '&contract={contract}';
       request({ url: locations_url, timeout: 4000}, function (error, response, body) {
         if(error || response.statusCode!=200){
           console.error('Error acquiring Cyclocity data.');
@@ -517,7 +517,7 @@ var updaters = {
         return {
           url: address,
           headers: {
-            ApiKey: process.env.bcycle_key,  //Bcycle API key
+            ApiKey: process.env.BCYCLE_KEY,  //Bcycle API key
             'Cache-Control': 'no-cache'
           }
         };
@@ -587,7 +587,7 @@ var updaters = {
     update: function(){
       console.log('Updater: BART started.');
 
-      url='http://api.bart.gov/api/etd.aspx?cmd=etd&orig=all&key=' + process.env.bart_key;
+      url='http://api.bart.gov/api/etd.aspx?cmd=etd&orig=all&key=' + process.env.BART_KEY;
       request({ url: url, timeout: 10000 }, function (error, response, body) {
         if(error || response.statusCode !=200){
           console.error('Error: Failed to fetch BART real-time data!');

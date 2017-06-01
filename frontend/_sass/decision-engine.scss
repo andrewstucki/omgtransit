@@ -1,4 +1,4 @@
-@import "colors.css.scss";
+@import "colors";
 
 .de-header {
   padding:    10px 15px;
@@ -52,7 +52,7 @@
   }
   .arrow-down {
     width:        0;
-    height:       0; 
+    height:       0;
     border-left:  6px solid transparent;
     border-right: 6px solid transparent;
     border-top:   6px solid #fff;
@@ -66,7 +66,7 @@
 
 
 #deceng_results {
-  
+
   .deng-weather {
     position:   relative;
     margin-top: 15px;
@@ -172,7 +172,7 @@
     .de-legs {
       font-family: 'Helvetica Neue', Helvetica, Arial;
       margin: 0;
-      
+
       td {
         font-size: 12px;
       }
